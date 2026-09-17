@@ -11,10 +11,14 @@ import Pagination from "@/components/Pagination/Pagination";
 import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
 
-import { createNote, deleteNote, fetchNotes } from "@/lib/api";
-import type { NewNote } from "@/types/note";
+import { createNote, deleteNote, fetchNotes } from "@/lib/api/notes";
+import type { NewNote, NoteTag } from "@/types/note";
 
-export default function NotesClient() {
+interface NotesClientProps {
+  tag?: NoteTag;
+}
+
+export default function NotesClient({ tag }: NotesClientProps) {
   const queryClient = useQueryClient();
 
   const [page, setPage] = useState(1);
@@ -33,12 +37,13 @@ export default function NotesClient() {
   };
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["notes", page, search],
+    queryKey: ["notes", page, search, tag],
     queryFn: () =>
       fetchNotes({
         page,
         perPage: 12,
         search,
+        tag,
       }),
   });
 
