@@ -4,8 +4,8 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 
-import NotesClient from "../../Notes.client";
-import { fetchNotes } from "@/lib/api/notes";
+import NotesClient from "./Notes.client";
+import { fetchNotes } from "@/lib/api";
 import type { NoteTag } from "@/types/note";
 
 const noteTags: NoteTag[] = ["Todo", "Work", "Personal", "Meeting", "Shopping"];
